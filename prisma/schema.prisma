@@ -1,0 +1,143 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// model Project {
+//   id Int @id @default(autoincrement())
+//   name String
+//   createdAt DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+// }
+
+model Production {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  task Task @relation(fields: [taskId], references: [id])
+  taskId Int
+
+  tower ListConstruction @relation(fields: [listId], references: [id])
+  listId Int
+
+  team Team @relation(fields: [teamId], references: [id])
+  teamId Int
+}
+
+model Task {
+  id Int @id @default(autoincrement())
+  name String @unique
+  unity UNITY @default(TORRE)
+  stage String
+  createdAt DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  productions Production[]
+}
+
+model ListConstruction {
+  id Int @id @default(autoincrement())
+  tower String @unique
+  type String
+  locality String
+  coordinates String
+  forward Int
+  height Int
+  weight Int
+  excavation_volume Int?
+  concrete_volume Int?
+  backfill_volume Int?
+  steel_volume Int?
+  createdAt DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  status Status @relation(fields: [statusId], references: [id])
+  statusId Int
+
+  production Production[]
+}
+
+model Status {
+  id Int @id @default(autoincrement())
+  status String @unique
+  listConstructions ListConstruction[]
+}
+
+model Team {
+  id Int @id @default(autoincrement())
+  name String @unique
+  tooling_cost Int
+
+  employee Employee[]
+  equipment Equipment[]
+  production Production[]
+}
+
+model Equipment {
+  id Int @id @default(autoincrement())
+  model String
+  manufacturer String
+  license_plate String @unique
+  provider String
+  cost Int
+  status STATUS_EQUIPMENT @default(ATIVO)
+
+  team Team @relation(fields: [teamId], references: [id])
+  teamId Int
+}
+
+model Employee {
+  id Int @id @default(autoincrement())
+  registration String @unique
+  name String @unique
+  occupation String
+  base_salary Int
+  status STATUS_EMPLOYEE @default(ATIVO)
+
+  team Team @relation(fields: [teamId], references: [id])
+  teamId Int
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String @unique
+  password  String
+  role Role @default(CONTROLLER)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+
+  @@map("user")
+}
+
+enum Role {
+  CONTROLLER
+  ADMIN
+  ROOT
+}
+
+enum UNITY {
+  TORRE
+  KM
+  UNIDADE
+}
+
+enum STATUS_EQUIPMENT {
+  ATIVO
+  MANUTENCAO
+}
+
+enum STATUS_EMPLOYEE {
+  ATIVO
+  TREINAMENTO
+  AFASTADO
+}
