@@ -40,6 +40,7 @@ export class ProductionRepository {
     }
 
     const data: Prisma.ProductionCreateInput = {
+      ...createProductionDto,
       task: {
         connect: {
           name: task.name,
@@ -134,6 +135,7 @@ export class ProductionRepository {
       throw new NotFoundError('Team not found.');
     }
     const data: Prisma.ProductionUpdateInput = {
+      ...updateProductionDto,
       task: {
         connect: {
           name: task.name,

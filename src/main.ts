@@ -26,6 +26,11 @@ async function bootstrap() {
     }),
   );
 
+  app.enableCors({
+    origin: ['http://localhost:8000', 'http://localhost:4200'],
+    credentials: true,
+  });
+
   //app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(new ConflictInterceptor());
   app.useGlobalInterceptors(new DatabaseInterceptor());

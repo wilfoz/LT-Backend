@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { ListConstructionModule } from './list-construction/list-construction.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
@@ -12,6 +11,7 @@ import { ProductionModule } from './production/production.module';
 import { TeamModule } from './team/team.module';
 import { EmployeeModule } from './employee/employee.module';
 import { EquipmentModule } from './equipment/equipment.module';
+import { ListConstructionModule } from './list-construction/list-construction.module';
 
 @Module({
   imports: [

@@ -22,6 +22,7 @@ model Production {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  weather WEATHER @default(BOM)
 
   task Task @relation(fields: [taskId], references: [id])
   taskId Int
@@ -140,4 +141,10 @@ enum STATUS_EMPLOYEE {
   ATIVO
   TREINAMENTO
   AFASTADO
+}
+
+enum WEATHER {
+  BOM
+  NUBLADO
+  CHUVA
 }

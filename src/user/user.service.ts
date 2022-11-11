@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserEntity } from './entities/user.entity';
@@ -16,7 +15,6 @@ export class UserService {
     };
 
     const createdUser = await this.repository.create(data);
-
     return {
       ...createdUser,
       password: undefined,
