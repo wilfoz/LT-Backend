@@ -1,4 +1,4 @@
-import { Employee, STATUS_EMPLOYEE } from '@prisma/client';
+import { Employee, LEADERS, STATUS_EMPLOYEE } from '@prisma/client';
 
 export class EmployeeEntity implements Employee {
   id: number;
@@ -6,6 +6,7 @@ export class EmployeeEntity implements Employee {
   name: string;
   occupation: string;
   base_salary: number;
+  leadership: LEADERS;
   status: STATUS_EMPLOYEE;
   teamId: number;
 }

@@ -38,8 +38,13 @@ export class ListConstructionRepository {
     });
   }
 
-  findAll(): Promise<ListConstructionEntity[]> {
+  findAll(pagination: {
+    page: number;
+    totalPerPage: number;
+  }): Promise<ListConstructionEntity[]> {
     return this.prisma.listConstruction.findMany({
+      skip: pagination.page || 1,
+      take: pagination.totalPerPage || 5,
       include: {
         status: true,
       },

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { TeamService } from './team.service';
 import { CreateTeamDto } from './dto/create-team.dto';
@@ -27,8 +28,11 @@ export class TeamController {
   @ApiOkResponse({ type: TeamEntity })
   @ApiForbiddenResponse({ description: 'Acesso negado!', isArray: true })
   @Get()
-  findAll() {
-    return this.teamService.findAll();
+  findAll(@Query() { page, totalPerPage }) {
+    return this.teamService.findAll({
+      page: +page,
+      totalPerPage: +totalPerPage,
+    });
   }
 
   @ApiOkResponse({ type: TeamEntity })

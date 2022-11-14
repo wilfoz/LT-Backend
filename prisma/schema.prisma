@@ -101,6 +101,7 @@ model Employee {
   name String @unique
   occupation String
   base_salary Int
+  leadership LEADERS? @default(NAO)
   status STATUS_EMPLOYEE @default(ATIVO)
 
   team Team @relation(fields: [teamId], references: [id])
@@ -147,4 +148,9 @@ enum WEATHER {
   BOM
   NUBLADO
   CHUVA
+}
+
+enum LEADERS {
+  SIM
+  NAO
 }

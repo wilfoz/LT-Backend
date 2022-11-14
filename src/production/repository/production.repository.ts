@@ -62,8 +62,10 @@ export class ProductionRepository {
     });
   }
 
-  findAll() {
+  findAll(pagination: { page: number; totalPerPage: number }) {
     return this.prisma.production.findMany({
+      skip: pagination.page || 1,
+      take: pagination.totalPerPage || 5,
       include: {
         task: true,
         tower: true,

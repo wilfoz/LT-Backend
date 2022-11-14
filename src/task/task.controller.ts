@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -27,8 +28,11 @@ export class TaskController {
   @ApiOkResponse({ type: TaskEntity })
   @ApiForbiddenResponse({ description: 'Acesso negado!', isArray: true })
   @Get()
-  findAll() {
-    return this.taskService.findAll();
+  findAll(@Query() { page, totalPerPage }) {
+    return this.taskService.findAll({
+      page: +page,
+      totalPerPage: +totalPerPage,
+    });
   }
 
   @ApiOkResponse({ type: TaskEntity })

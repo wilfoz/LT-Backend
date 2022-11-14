@@ -13,7 +13,13 @@ export class StatusRepository {
     });
   }
 
-  findAll(): Promise<StatusEntity[]> {
-    return this.prisma.status.findMany();
+  findAll(pagination: {
+    page: number;
+    totalPerPage: number;
+  }): Promise<StatusEntity[]> {
+    return this.prisma.status.findMany({
+      skip: pagination.page || 1,
+      take: pagination.totalPerPage || 5,
+    });
   }
 }

@@ -13,8 +13,10 @@ export class TeamRepository {
     });
   }
 
-  findAll() {
+  findAll(pagination: { page: number; totalPerPage: number }) {
     return this.prisma.team.findMany({
+      skip: pagination.page || 1,
+      take: pagination.totalPerPage || 5,
       include: {
         equipment: true,
         employee: true,

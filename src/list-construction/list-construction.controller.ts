@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { ApiForbiddenResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
@@ -30,8 +31,11 @@ export class ListConstructionController {
 
   @ApiOkResponse({ type: ListConstructionEntity, isArray: true })
   @Get()
-  findAll() {
-    return this.listConstructionService.findAll();
+  findAll(@Query() { page, totalPerPage }) {
+    return this.listConstructionService.findAll({
+      page: +page,
+      totalPerPage: +totalPerPage,
+    });
   }
 
   @ApiOkResponse({ type: ListConstructionEntity })

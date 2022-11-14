@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { STATUS_EMPLOYEE } from 'prisma/prisma-client';
+import { LEADERS, STATUS_EMPLOYEE } from 'prisma/prisma-client';
 
 export class CreateEmployeeDto {
   @ApiProperty({
@@ -32,8 +32,15 @@ export class CreateEmployeeDto {
   base_salary: number;
 
   @ApiProperty({
+    description: 'Se o funcionário e um lider de equipe',
+  })
+  @IsString()
+  leadership: LEADERS;
+
+  @ApiProperty({
     description: 'Status do funcionário',
   })
+  @IsString()
   status: STATUS_EMPLOYEE;
 
   @ApiProperty({

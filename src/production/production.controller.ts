@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ProductionService } from './production.service';
 import { CreateProductionDto } from './dto/create-production.dto';
@@ -23,8 +24,11 @@ export class ProductionController {
   }
 
   @Get()
-  findAll() {
-    return this.productionService.findAll();
+  findAll(@Query() { page, totalPerPage }) {
+    return this.productionService.findAll({
+      page: +page,
+      totalPerPage: +totalPerPage,
+    });
   }
 
   @Get(':id')

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { StatusService } from './status.service';
 import { CreateStatusDto } from './dto/create-status.dto';
@@ -27,8 +28,11 @@ export class StatusController {
   @ApiOkResponse({ type: StatusEntity })
   @ApiForbiddenResponse({ description: 'Acesso negado!', isArray: true })
   @Get()
-  findAll() {
-    return this.statusService.findAll();
+  findAll(@Query() { page, totalPerPage }) {
+    return this.statusService.findAll({
+      page: +page,
+      totalPerPage: +totalPerPage,
+    });
   }
 
   @ApiOkResponse({ type: StatusEntity })

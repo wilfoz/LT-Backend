@@ -13,8 +13,11 @@ export class ListConstructionService {
     return this.repository.create(createListConstructionDto);
   }
 
-  findAll(): Promise<ListConstructionEntity[]> {
-    return this.repository.findAll();
+  findAll(pagination: {
+    page: number;
+    totalPerPage: number;
+  }): Promise<ListConstructionEntity[]> {
+    return this.repository.findAll(pagination);
   }
 
   async findOne(id: number): Promise<ListConstructionEntity> {

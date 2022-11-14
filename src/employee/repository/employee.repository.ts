@@ -34,8 +34,13 @@ export class EmployeeRepository {
     });
   }
 
-  findAll(): Promise<EmployeeEntity[]> {
+  findAll(pagination: {
+    page: number;
+    totalPerPage: number;
+  }): Promise<EmployeeEntity[]> {
     return this.prisma.employee.findMany({
+      skip: pagination.page || 1,
+      take: pagination.totalPerPage || 5,
       include: {
         team: {
           select: {

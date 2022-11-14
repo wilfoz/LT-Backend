@@ -10,8 +10,8 @@ export class EquipmentService {
     return this.repository.create(createEquipmentDto);
   }
 
-  findAll() {
-    return this.repository.findAll();
+  findAll(pagination: { page: number; totalPerPage: number }) {
+    return this.repository.findAll(pagination);
   }
 
   findOne(id: number) {

@@ -10,8 +10,8 @@ export class TaskService {
     return this.repository.create(createTaskDto);
   }
 
-  findAll() {
-    return this.repository.findAll();
+  findAll(pagination: { page: number; totalPerPage: number }) {
+    return this.repository.findAll(pagination);
   }
 
   findOne(id: number) {

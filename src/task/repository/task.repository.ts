@@ -3,28 +3,26 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { TaskEntity } from '../entities/task.entity';
 import { UpdateTaskDto } from '../dto/update-task.dto';
-import { ApiForbiddenResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-
-@ApiTags('Task')
 @Injectable()
 export class TaskRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  @ApiForbiddenResponse({ description: 'Acesso negado!' })
   create(createTaskDto: CreateTaskDto): Promise<TaskEntity> {
     return this.prisma.task.create({
       data: createTaskDto,
     });
   }
 
-  @ApiOkResponse({ type: TaskEntity })
-  @ApiForbiddenResponse({ description: 'Acesso negado!', isArray: true })
-  findAll(): Promise<TaskEntity[]> {
-    return this.prisma.task.findMany();
+  findAll(pagination: {
+    page: number;
+    totalPerPage: number;
+  }): Promise<TaskEntity[]> {
+    return this.prisma.task.findMany({
+      skip: pagination.page || 1,
+      take: pagination.totalPerPage || 5,
+    });
   }
 
-  @ApiOkResponse({ type: TaskEntity })
-  @ApiForbiddenResponse({ description: 'Acesso negado!' })
   findOne(id: number) {
     return this.prisma.task.findUnique({
       where: {
@@ -33,8 +31,6 @@ export class TaskRepository {
     });
   }
 
-  @ApiOkResponse({ type: TaskEntity })
-  @ApiForbiddenResponse({ description: 'Acesso negado!' })
   update(id: number, updateTaskDto: UpdateTaskDto) {
     return this.prisma.task.update({
       where: {
@@ -44,7 +40,6 @@ export class TaskRepository {
     });
   }
 
-  @ApiForbiddenResponse({ description: 'Acesso negado!' })
   remove(id: number) {
     return this.prisma.task.delete({
       where: {

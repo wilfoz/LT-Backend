@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { EquipmentService } from './equipment.service';
 import { CreateEquipmentDto } from './dto/create-equipment.dto';
@@ -27,8 +28,11 @@ export class EquipmentController {
   @ApiOkResponse({ type: EquipmentEntity })
   @ApiForbiddenResponse({ description: 'Acesso negado!', isArray: true })
   @Get()
-  findAll() {
-    return this.equipmentService.findAll();
+  findAll(@Query() { page, totalPerPage }) {
+    return this.equipmentService.findAll({
+      page: +page,
+      totalPerPage: +totalPerPage,
+    });
   }
 
   @ApiOkResponse({ type: EquipmentEntity })

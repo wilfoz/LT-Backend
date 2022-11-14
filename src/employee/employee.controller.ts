@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
@@ -27,8 +28,11 @@ export class EmployeeController {
   @ApiOkResponse({ type: EmployeeEntity })
   @ApiForbiddenResponse({ description: 'Acesso negado!', isArray: true })
   @Get()
-  findAll() {
-    return this.employeeService.findAll();
+  findAll(@Query() { page, totalPerPage }) {
+    return this.employeeService.findAll({
+      page: +page,
+      totalPerPage: +totalPerPage,
+    });
   }
 
   @ApiOkResponse({ type: EmployeeEntity })

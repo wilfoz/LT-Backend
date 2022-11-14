@@ -11,8 +11,11 @@ export class StatusService {
     return this.repository.create(createStatusDto);
   }
 
-  findAll(): Promise<StatusEntity[]> {
-    return this.repository.findAll();
+  findAll(pagination: {
+    page: number;
+    totalPerPage: number;
+  }): Promise<StatusEntity[]> {
+    return this.repository.findAll(pagination);
   }
 
   findOne(id: number) {

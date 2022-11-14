@@ -11,8 +11,11 @@ export class EmployeeService {
     return this.repository.create(createEmployeeDto);
   }
 
-  findAll(): Promise<EmployeeEntity[]> {
-    return this.repository.findAll();
+  findAll(pagination: {
+    page: number;
+    totalPerPage: number;
+  }): Promise<EmployeeEntity[]> {
+    return this.repository.findAll(pagination);
   }
 
   findOne(id: number): Promise<EmployeeEntity> {
