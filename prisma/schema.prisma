@@ -20,9 +20,9 @@ datasource db {
 
 model Production {
   id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  weather WEATHER @default(BOM)
+
+  comments String?
+  status STATUS_PRODUCTION @default(PROGRAMADO)
 
   task Task @relation(fields: [taskId], references: [id])
   taskId Int
@@ -32,13 +32,18 @@ model Production {
 
   team Team @relation(fields: [teamId], references: [id])
   teamId Int
+
+  productionDate DateTime
+  
+  startTimeOfDay String?
+  endTimeOfDay String?
 }
 
 model Task {
   id Int @id @default(autoincrement())
   name String @unique
   unity UNITY @default(TORRE)
-  stage String
+  stage STAGE @default(PRELIMINAR)
   createdAt DateTime @default(now())
   updatedAt   DateTime @updatedAt
   productions Production[]
@@ -50,28 +55,20 @@ model ListConstruction {
   type String
   locality String
   coordinates String
-  forward Int
-  height Int
-  weight Int
-  excavation_volume Int?
-  concrete_volume Int?
-  backfill_volume Int?
-  steel_volume Int?
+  forward Float
+  height Float
+  weight Float
+  excavation_volume Float?
+  concrete_volume Float?
+  backfill_volume Float?
+  steel_volume Float?
   createdAt DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  status Status @relation(fields: [statusId], references: [id])
-  statusId Int
+  embargo EMBARGOES @default(LIBERADO)
 
   production Production[]
 }
-
-model Status {
-  id Int @id @default(autoincrement())
-  status String @unique
-  listConstructions ListConstruction[]
-}
-
 model Team {
   id Int @id @default(autoincrement())
   name String @unique
@@ -89,6 +86,12 @@ model Equipment {
   license_plate String @unique
   provider String
   cost Int
+  // location Int
+  // supply Int
+  // wash Int
+  // lubricant Int
+  // rubber_shop Int
+  // mob Int
   status STATUS_EQUIPMENT @default(ATIVO)
 
   team Team @relation(fields: [teamId], references: [id])
@@ -101,6 +104,16 @@ model Employee {
   name String @unique
   occupation String
   base_salary Int
+  // type String
+  // direct_cost Int
+  // social_charges Int
+  // food_cost Int
+  // epi_cost Int
+  // housing_cost Int
+  // health_plan Int
+  // life_insurance Int
+  // training_cost Int
+  // trips_cost Int
   leadership LEADERS? @default(NAO)
   status STATUS_EMPLOYEE @default(ATIVO)
 
@@ -138,19 +151,33 @@ enum STATUS_EQUIPMENT {
   MANUTENCAO
 }
 
+enum STATUS_PRODUCTION {
+  EXECUTADO
+  PROGRAMADO
+  ANDAMENTO
+}
+
 enum STATUS_EMPLOYEE {
   ATIVO
   TREINAMENTO
   AFASTADO
 }
 
-enum WEATHER {
-  BOM
-  NUBLADO
-  CHUVA
-}
-
 enum LEADERS {
   SIM
   NAO
+}
+
+enum EMBARGOES {
+  LIBERADO
+  PROJETO
+  FUNDIARIO
+  ARQUEOLOGIA
+}
+
+enum STAGE {
+  PRELIMINAR
+  CIVIL
+  MONTAGEM
+  LANCAMENTO
 }

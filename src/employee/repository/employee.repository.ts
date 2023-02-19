@@ -39,8 +39,8 @@ export class EmployeeRepository {
     totalPerPage: number;
   }): Promise<EmployeeEntity[]> {
     return this.prisma.employee.findMany({
-      skip: pagination.page || 1,
-      take: pagination.totalPerPage || 5,
+      skip: pagination.page || 0,
+      take: pagination.totalPerPage || 100,
       include: {
         team: {
           select: {

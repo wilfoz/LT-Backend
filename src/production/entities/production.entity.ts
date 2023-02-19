@@ -1,11 +1,12 @@
-import { Production, WEATHER } from '@prisma/client';
-
+import { Production, STATUS_PRODUCTION } from '@prisma/client';
 export class ProductionEntity implements Production {
   id: number;
-  createdAt: Date;
-  updatedAt: Date;
-  weather: WEATHER;
+  comments: string;
+  status: STATUS_PRODUCTION;
   taskId: number;
   listId: number;
   teamId: number;
+  productionDate: Date;
+  startTimeOfDay: string;
+  endTimeOfDay: string;
 }

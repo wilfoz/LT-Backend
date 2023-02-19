@@ -18,8 +18,8 @@ export class TaskRepository {
     totalPerPage: number;
   }): Promise<TaskEntity[]> {
     return this.prisma.task.findMany({
-      skip: pagination.page || 1,
-      take: pagination.totalPerPage || 5,
+      skip: pagination.page || 0,
+      take: pagination.totalPerPage || 100,
     });
   }
 

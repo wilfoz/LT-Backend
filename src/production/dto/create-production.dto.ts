@@ -1,14 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { WEATHER } from '@prisma/client';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { STATUS_PRODUCTION } from '@prisma/client';
+import { IsDateString, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateProductionDto {
   @ApiProperty({
-    description: 'Clima de tempo',
+    description: 'Status da produção: programada ou executada ou em andamento',
   })
   @IsString()
   @IsNotEmpty()
-  weather: WEATHER;
+  status: STATUS_PRODUCTION;
 
   @ApiProperty({
     description: 'Atividade realizada',
@@ -30,4 +30,17 @@ export class CreateProductionDto {
   @IsString()
   @IsNotEmpty()
   team: string;
+
+  @IsDateString()
+  @IsNotEmpty()
+  productionDate: Date;
+
+  @IsString()
+  startTimeOfDay: string;
+
+  @IsString()
+  endTimeOfDay: string;
+
+  @IsString()
+  comments: string;
 }

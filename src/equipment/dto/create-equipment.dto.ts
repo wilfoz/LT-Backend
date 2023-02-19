@@ -41,6 +41,7 @@ export class CreateEquipmentDto {
   @ApiProperty({
     description: 'Status do equipamento/ veículo',
   })
+  @IsString()
   status: STATUS_EQUIPMENT;
 
   @ApiProperty({

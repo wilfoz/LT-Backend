@@ -15,14 +15,14 @@ export class ProductionService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} production`;
+    return this.repository.findOne(id);
   }
 
   update(id: number, updateProductionDto: UpdateProductionDto) {
-    return `This action updates a #${id} production`;
+    return this.repository.update(id, updateProductionDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} production`;
+    return this.repository.remove(id);
   }
 }

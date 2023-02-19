@@ -35,8 +35,8 @@ export class EquipmentRepository {
 
   findAll(pagination: { page: number; totalPerPage: number }) {
     return this.prisma.equipment.findMany({
-      skip: pagination.page || 1,
-      take: pagination.totalPerPage || 5,
+      skip: pagination.page || 0,
+      take: pagination.totalPerPage || 100,
       include: {
         team: {
           select: {

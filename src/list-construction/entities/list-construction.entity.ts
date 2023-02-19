@@ -1,4 +1,4 @@
-import { ListConstruction } from '@prisma/client';
+import { EMBARGOES, ListConstruction } from '@prisma/client';
 
 export class ListConstructionEntity implements ListConstruction {
   id: number;
@@ -13,7 +13,7 @@ export class ListConstructionEntity implements ListConstruction {
   concrete_volume: number;
   backfill_volume: number;
   steel_volume: number;
+  embargo: EMBARGOES;
   createdAt: Date;
   updatedAt: Date;
-  statusId: number;
 }

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
-import { UNITY } from 'prisma/prisma-client';
+import { UNITY, STAGE } from 'prisma/prisma-client';
 
 export class CreateTaskDto {
   @ApiProperty({
@@ -21,5 +21,5 @@ export class CreateTaskDto {
   })
   @IsString()
   @IsNotEmpty()
-  stage: string;
+  stage: STAGE;
 }

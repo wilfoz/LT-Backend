@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
-import { TeamEntity } from './entities/team.entity';
 import { TeamRepository } from './repository/team.repository';
 
 @Injectable()
@@ -16,14 +15,14 @@ export class TeamService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} team`;
+    return this.repository.findOne(id);
   }
 
   update(id: number, updateTeamDto: UpdateTeamDto) {
-    return `This action updates a #${id} team`;
+    return this.repository.update(id, updateTeamDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} team`;
+    return this.repository.remove(id);
   }
 }

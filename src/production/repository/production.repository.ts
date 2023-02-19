@@ -64,15 +64,24 @@ export class ProductionRepository {
 
   findAll(pagination: { page: number; totalPerPage: number }) {
     return this.prisma.production.findMany({
-      skip: pagination.page || 1,
-      take: pagination.totalPerPage || 5,
+      skip: pagination.page || 0,
+      take: pagination.totalPerPage || 100,
       include: {
-        task: true,
-        tower: true,
+        task: {
+          select: {
+            name: true,
+            unity: true,
+            stage: true,
+          },
+        },
+        tower: {
+          select: {
+            tower: true,
+          },
+        },
         team: {
-          include: {
-            employee: true,
-            equipment: true,
+          select: {
+            name: true,
           },
         },
       },
@@ -89,6 +98,7 @@ export class ProductionRepository {
           select: {
             name: true,
             unity: true,
+            stage: true,
           },
         },
         tower: {

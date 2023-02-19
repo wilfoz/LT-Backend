@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { EMBARGOES } from '@prisma/client';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateListConstructionDto {
@@ -75,6 +76,9 @@ export class CreateListConstructionDto {
   @IsNumber()
   steel_volume?: number;
 
-  @IsNumber()
-  statusId: number;
+  @ApiProperty({
+    description: 'Situação de embargos',
+  })
+  @IsString()
+  embargo: EMBARGOES;
 }
