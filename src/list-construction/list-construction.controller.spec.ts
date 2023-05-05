@@ -11,7 +11,9 @@ describe('ListConstructionController', () => {
       providers: [ListConstructionService],
     }).compile();
 
-    controller = module.get<ListConstructionController>(ListConstructionController);
+    controller = module.get<ListConstructionController>(
+      ListConstructionController,
+    );
   });
 
   it('should be defined', () => {

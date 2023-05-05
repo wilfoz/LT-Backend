@@ -11,6 +11,7 @@ import { TeamModule } from './team/team.module';
 import { EmployeeModule } from './employee/employee.module';
 import { EquipmentModule } from './equipment/equipment.module';
 import { ListConstructionModule } from './list-construction/list-construction.module';
+import { DiagramModule } from './diagram/diagram.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ListConstructionModule } from './list-construction/list-construction.mo
     TeamModule,
     EmployeeModule,
     EquipmentModule,
+    DiagramModule,
   ],
   providers: [
     {

@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE "Production" ALTER COLUMN "startTimeOfDay" SET DATA TYPE TEXT,
-ALTER COLUMN "endTimeOfDay" SET DATA TYPE TEXT;
