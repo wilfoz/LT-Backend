@@ -6,7 +6,7 @@ export class DiagramEntity implements Diagram {
 
   status_topography: string;
 
-  status_vegetal_supression: string;
+  status_vegetal_suppression: string;
 
   type_of_foundation_A: string;
   type_of_foundation_B: string;

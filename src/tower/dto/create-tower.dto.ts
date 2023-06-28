@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { EMBARGOES } from '@prisma/client';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class CreateListConstructionDto {
+export class CreateTowerDto {
   @ApiProperty({
     description: 'Número sequencial da torre',
   })

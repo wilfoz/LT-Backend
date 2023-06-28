@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl"]
 }
 
@@ -21,87 +21,86 @@ datasource db {
 model Diagram {
   id Int @id @default(autoincrement())
 
-  list ListConstruction @relation(fields: [listId], references: [id])
-  listId Int @unique
+  list   Tower @relation(fields: [listId], references: [id])
+  listId Int   @unique
 
   status_topography String?
 
-  status_vegetal_supression String?
+  status_vegetal_suppression String?
 
-  type_of_foundation_A String?
-  type_of_foundation_B String?
-  type_of_foundation_C String?
-  type_of_foundation_D String?
+  type_of_foundation_A  String?
+  type_of_foundation_B  String?
+  type_of_foundation_C  String?
+  type_of_foundation_D  String?
   type_of_foundation_MC String?
 
-  status_foundation_A String?
-  status_foundation_B String?
-  status_foundation_C String?
-  status_foundation_D String?
+  status_foundation_A  String?
+  status_foundation_B  String?
+  status_foundation_C  String?
+  status_foundation_D  String?
   status_foundation_MC String?
 
   status_tower_assembly String?
-  status_cable_laying String?
-
+  status_cable_laying   String?
 }
 
 model Production {
   id Int @id @default(autoincrement())
 
   comments String?
-  status STATUS_PRODUCTION @default(PROGRAMADO)
-  weather WEATHER @default(BOM)
-  task Task @relation(fields: [taskId], references: [id])
-  taskId Int
+  status   STATUS_PRODUCTION @default(PROGRAMADO)
+  weather  WEATHER           @default(BOM)
+  task     Task              @relation(fields: [taskId], references: [id])
+  taskId   Int
 
-  tower ListConstruction @relation(fields: [listId], references: [id])
+  tower  Tower @relation(fields: [listId], references: [id])
   listId Int
 
-  team Team @relation(fields: [teamId], references: [id])
+  team   Team @relation(fields: [teamId], references: [id])
   teamId Int
 
   productionDate DateTime
-  
+
   startTimeOfDay String?
-  endTimeOfDay String?
+  endTimeOfDay   String?
 }
 
 model Task {
-  id Int @id @default(autoincrement())
-  code Float @unique
-  group String
-  name String @unique
-  unity UNITY @default(TORRE)
-  total Float
+  id        Int      @id @default(autoincrement())
+  code      Float    @unique
+  group     String
+  name      String   @unique
+  unity     UNITY    @default(TORRE)
+  total     Float
   is_mapped Boolean
-  stage STAGE @default(PRELIMINAR)
+  stage     STAGE    @default(PRELIMINAR)
   createdAt DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt DateTime @updatedAt
 
   productions Production[]
 }
 
-model ListConstruction {
-  id Int @id @default(autoincrement())
-  code Int
-  tower String @unique
-  type String
-  locality String
-  coordinates String
-  forward Float
-  height Float
-  weight Float
-  excavation_volume Float?
-  concrete_volume Float?
-  backfill_volume Float?
-  steel_volume Float?
-  type_of_foundation_A String?
-  type_of_foundation_B String?
-  type_of_foundation_C String?
-  type_of_foundation_D String?
+model Tower {
+  id                    Int      @id @default(autoincrement())
+  code                  Int
+  tower                 String   @unique
+  type                  String
+  locality              String
+  coordinates           String
+  forward               Float
+  height                Float
+  weight                Float
+  excavation_volume     Float?
+  concrete_volume       Float?
+  backfill_volume       Float?
+  steel_volume          Float?
+  type_of_foundation_A  String?
+  type_of_foundation_B  String?
+  type_of_foundation_C  String?
+  type_of_foundation_D  String?
   type_of_foundation_MC String?
-  createdAt DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
 
   embargo EMBARGOES @default(LIBERADO)
 
@@ -109,53 +108,54 @@ model ListConstruction {
 
   diagram Diagram?
 }
+
 model Team {
-  id Int @id @default(autoincrement())
-  name String @unique
+  id           Int    @id @default(autoincrement())
+  name         String @unique
   tooling_cost Int
 
-  employee Employee[]
-  equipment Equipment[]
+  employee   Employee[]
+  equipment  Equipment[]
   production Production[]
 }
 
 model Equipment {
-  id Int @id @default(autoincrement())
-  model String
-  manufacturer String
+  id            Int    @id @default(autoincrement())
+  model         String
+  manufacturer  String
   license_plate String @unique
-  provider String
-  cost Int
+  provider      String
+  cost          Int
 
   status STATUS_EQUIPMENT @default(ATIVO)
 
-  team Team @relation(fields: [teamId], references: [id])
+  team   Team @relation(fields: [teamId], references: [id])
   teamId Int
 }
 
 model Employee {
-  id Int @id @default(autoincrement())
+  id           Int    @id @default(autoincrement())
   registration String @unique
-  name String @unique
-  occupation String
-  base_salary Int
+  name         String @unique
+  occupation   String
+  base_salary  Int
 
-  leadership LEADERS? @default(NAO)
-  status STATUS_EMPLOYEE @default(ATIVO)
+  leadership LEADERS?        @default(NAO)
+  status     STATUS_EMPLOYEE @default(ATIVO)
 
-  team Team @relation(fields: [teamId], references: [id])
+  team   Team @relation(fields: [teamId], references: [id])
   teamId Int
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  name      String
-  email     String @unique
-  password  String
-  role Role @default(CONTROLLER)
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+  role     Role   @default(CONTROLLER)
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now()) @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@map("user")
 }

@@ -10,13 +10,13 @@ import { ProductionModule } from './production/production.module';
 import { TeamModule } from './team/team.module';
 import { EmployeeModule } from './employee/employee.module';
 import { EquipmentModule } from './equipment/equipment.module';
-import { ListConstructionModule } from './list-construction/list-construction.module';
+import { TowerModule } from './tower/tower.module';
 import { DiagramModule } from './diagram/diagram.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    ListConstructionModule,
+    TowerModule,
     UserModule,
     PrismaModule,
     AuthModule,

@@ -19,7 +19,7 @@ export class CreateDiagramDto {
     description: 'Status da atividade de supressão vegetal',
   })
   @IsString()
-  status_vegetal_supression: string;
+  status_vegetal_suppression: string;
 
   @ApiProperty({
     description: 'Tipo da fundação da Perna/Estai A',

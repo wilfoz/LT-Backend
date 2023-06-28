@@ -19,7 +19,7 @@ export class ProductionRepository {
       throw new NotFoundError('Task not found.');
     }
 
-    const list = await this.prisma.listConstruction.findUnique({
+    const list = await this.prisma.tower.findUnique({
       where: {
         tower: createProductionDto.tower,
       },
@@ -127,7 +127,7 @@ export class ProductionRepository {
       throw new NotFoundError('Task not found.');
     }
 
-    const list = await this.prisma.listConstruction.findUnique({
+    const list = await this.prisma.tower.findUnique({
       where: {
         tower: updateProductionDto.tower,
       },

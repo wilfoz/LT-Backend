@@ -6,7 +6,7 @@ import { PrismaClient } from '@prisma/client';
 import { ProductionRepository } from './production.repository';
 import { mockedProductions, mockedTask, mockedTeam, mockedTower } from './mock';
 
-describe('ListConstructionRepository', () => {
+describe('ProductionRepository', () => {
   let repository: ProductionRepository;
   let prismaService: DeepMockProxy<PrismaClient>;
 
@@ -39,7 +39,7 @@ describe('ListConstructionRepository', () => {
     prismaService.task.findUnique.mockResolvedValue(task);
 
     // @ts-ignore
-    prismaService.listConstruction.findUnique.mockResolvedValue(tower);
+    prismaService.tower.findUnique.mockResolvedValue(tower);
 
     // @ts-ignore
     prismaService.production.create.mockResolvedValue(production);
@@ -94,7 +94,7 @@ describe('ListConstructionRepository', () => {
     prismaService.task.findUnique.mockResolvedValue(task);
 
     // @ts-ignore
-    prismaService.listConstruction.findUnique.mockResolvedValue(tower);
+    prismaService.tower.findUnique.mockResolvedValue(tower);
 
     prismaService.production.update.mockResolvedValue(production);
 

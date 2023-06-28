@@ -1,27 +1,25 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { mockDeep, DeepMockProxy } from 'jest-mock-extended';
-import { ListConstructionService } from './list-construction.service';
-import { CreateListConstructionDto } from './dto/create-list-construction.dto';
-import { UpdateListConstructionDto } from './dto/update-list-construction.dto';
-import { ListConstructionController } from './list-construction.controller';
+import { TowerController } from './tower.controller';
+import { TowerService } from './tower.service';
+import { CreateTowerDto } from './dto/create-tower.dto';
+import { UpdateTowerDto } from './dto/update-tower.dto';
 
-describe('ListConstructionRepository', () => {
-  let controller: ListConstructionController;
-  let service: DeepMockProxy<ListConstructionService>;
+describe('TowerController', () => {
+  let controller: TowerController;
+  let service: DeepMockProxy<TowerService>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ListConstructionController],
-      providers: [ListConstructionService],
+      controllers: [TowerController],
+      providers: [TowerService],
     })
-      .overrideProvider(ListConstructionService)
-      .useValue(mockDeep<ListConstructionService>())
+      .overrideProvider(TowerService)
+      .useValue(mockDeep<TowerService>())
       .compile();
 
-    controller = module.get<ListConstructionController>(
-      ListConstructionController,
-    );
-    service = module.get(ListConstructionService);
+    controller = module.get<TowerController>(TowerController);
+    service = module.get(TowerService);
   });
 
   it('should be defined', () => {
@@ -29,7 +27,7 @@ describe('ListConstructionRepository', () => {
   });
 
   it('calling create method', () => {
-    const dto = new CreateListConstructionDto();
+    const dto = new CreateTowerDto();
     expect(controller.create(dto)).not.toEqual(null);
     expect(service.create).toHaveBeenCalled();
   });
@@ -51,7 +49,7 @@ describe('ListConstructionRepository', () => {
   });
 
   it('calling findOne update', () => {
-    const dto = new UpdateListConstructionDto();
+    const dto = new UpdateTowerDto();
     const id = '1';
     expect(controller.update(+id, dto)).not.toEqual(null);
     expect(service.update).toHaveBeenCalledWith(+id, dto);

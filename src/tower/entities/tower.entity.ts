@@ -1,6 +1,6 @@
-import { EMBARGOES, ListConstruction } from '@prisma/client';
+import { EMBARGOES, Tower } from '@prisma/client';
 
-export class ListConstructionEntity implements ListConstruction {
+export class TowerEntity implements Tower {
   id: number;
   code: number;
   tower: string;

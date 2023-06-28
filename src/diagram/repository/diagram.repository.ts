@@ -1,27 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { Task, filteredTasks, mapProduction } from '../utils/mappers';
+import { Task, mapProduction } from '../utils/mappers';
+import { DiagramEntity } from '../entities/diagram.entity';
 
 @Injectable()
 export class DiagramRepository {
   constructor(private readonly prisma: PrismaService) {}
-  async findAll(): Promise<any[]> {
-    const listConstruction = await this.findAllListConstruction();
-    const tasks = await this.findAllTask();
-    const diagram = this.setListDiagram(listConstruction, tasks).sort(
+
+  async findAll(): Promise<DiagramEntity[]> {
+    const listConstruction = await this.findAllTowers();
+    const productions = await this.findAllProduction();
+    const diagram = this.setListDiagram(listConstruction, productions).sort(
       (a, b) => a.code - b.code,
     );
 
     return diagram;
   }
 
-  async findAllListConstruction() {
-    const listConstruction = await this.prisma.listConstruction.findMany({
+  async findAllTowers() {
+    const listConstruction = await this.prisma.tower.findMany({
       select: {
         id: true,
         code: true,
         tower: true,
         type: true,
+        coordinates: true,
         type_of_foundation_A: true,
         type_of_foundation_B: true,
         type_of_foundation_C: true,
@@ -34,8 +37,8 @@ export class DiagramRepository {
     return listConstruction;
   }
 
-  async findAllTask() {
-    const tasks = await this.prisma.production.findMany({
+  async findAllProduction() {
+    const prod = await this.prisma.production.findMany({
       where: {
         status: 'EXECUTADO',
         task: {
@@ -53,12 +56,12 @@ export class DiagramRepository {
         },
       },
     });
-    return tasks;
+    return prod;
   }
 
-  setListDiagram(listConstruction, tasks): any[] {
+  setListDiagram(listConstruction, productions: any[]): any[] {
     return listConstruction.map((list) => {
-      const filtered = filteredTasks(list, tasks);
+      const filtered = productions.find((prod) => prod.listId == list.id);
       const mapped = this.mapFilteredProduction(filtered);
 
       return {
